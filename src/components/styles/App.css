@@ -1,0 +1,184 @@
+:root {
+  --bg-dark: #020814;
+  --blue-primary: #38bdf8;
+  --text-main: #7dd3fc;
+  --red-primary: #ff4d4d;
+  --red-dark: #7a0000;
+}
+
+/* App container */
+.app-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #0a1a2f, #020814);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app-header {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.app-title {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px var(--blue-primary);
+  margin: 0;
+}
+
+.app-nav {
+  display: flex;
+  gap: 6px;
+  padding: 8px 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+  align-items: center;
+}
+
+.nav-button {
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: var(--text-main);
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.nav-button:hover {
+  background: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+.nav-button:active {
+  transform: scale(0.95);
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(56, 189, 248, 0.5), transparent);
+  margin: 10px 0;
+}
+
+/* Rotating Button */
+.rotating-button {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ff4d4d, #7a0000);
+  border: 2px solid rgba(255, 80, 80, 0.9);
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+}
+.rotating-button.active {
+  background-color: #22c55e; 
+}
+
+.rotating-button.inactive {
+  background-color: #ef4444; 
+}
+
+.rotating-button.active .circle {
+  border-color: #16a34a;
+}
+
+.rotating-button.inactive .circle {
+  border-color: #dc2626;
+}
+
+.rotating-button span {
+  position: relative;
+  z-index: 2;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 80, 80, 0.7);
+  width: 140px;
+  height: 140px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.circle1 {
+  animation: spin 4s linear infinite;
+}
+
+.circle2 {
+  width: 160px;
+  height: 160px;
+  border: 2px dashed rgba(255, 120, 120, 0.6);
+  animation: spinReverse 6s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  from { transform: translate(-50%, -50%) rotate(360deg); }
+  to { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+/* Heartbeat inline with nav */
+.heartbeat-container {
+  width: 150px;
+  height: 40px;
+  position: relative;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+.heartbeat {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-dark);
+  border: 1px solid var(--blue-primary);
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ecg-line {
+  position: absolute;
+  width: 400%;
+  height: 100%;
+  top: 0;
+  left: -100%;
+  background: repeating-linear-gradient(
+    to right,
+    transparent 0 4px,
+    var(--blue-primary) 4px 6px
+  );
+  animation: ecg-wave 2s linear infinite;
+}
+
+@keyframes ecg-wave {
+  0% { left: -100%; }
+  50% { left: 0%; }
+  100% { left: 100%; }
+}
