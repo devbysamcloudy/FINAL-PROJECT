@@ -122,3 +122,4 @@ function ChatWindow({ active }) {
 }
 
 export default ChatWindow;
+
