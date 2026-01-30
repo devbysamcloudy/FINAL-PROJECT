@@ -1,68 +1,39 @@
-import React, { useState } from "react";
-
-// voice stuff for jarvis
-function VoiceFeedback() {
-  const [userInformation, setUserInformation] = useState("");
+function VoiceFeedback({ active }) {
   const [listening, setListening] = useState(false);
+  const recognitionRef = useRef(null);
 
   function startVoice() {
-    // check if browser supports this
-    let SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert("Your browser doesnt support voice");
+    // CHANGED: Block voice if assistant is deactivated
+    if (!active) {
+      console.log("JARVIS is deactivated. Voice disabled.");
       return;
     }
 
-    let recognition = new SpeechRecognition();
-    recognition.lang = "en-US";
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return alert("Browser does not support voice.");
 
-    recognition.onresult = function (e) {
-      setUserInformation(e.results[0][0].transcript);
-    };
-    recognition.onend = function () {
-      setListening(false);
-    };
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+
+    recognition.onstart = () => setListening(true);
+    recognition.onend = () => setListening(false);
 
     recognition.start();
-    setListening(true);
   }
 
-  function makeJarvisTalk(text) {
-    let speech = new SpeechSynthesisUtterance(text);
-    window.speechSynthesis.speak(speech);
-  }
+  // CHANGED: stop recognition automatically if deactivated
+  useEffect(() => {
+    if (!active && recognitionRef.current) {
+      recognitionRef.current.stop();
+      setListening(false);
+    }
+  }, [active]);
 
   return (
-    <div className="voice-container">
-      <h2 className="voice-title">Voice</h2>
-
-      <div className="voice-controls">
-        <button
-          className={`voice-button primary-button ${
-            listening ? "listening" : ""
-          }`}
-          onClick={startVoice}
-          disabled={listening}
-        >
-          {listening ? "Listening..." : "Talk to JARVIS"}
-        </button>
-
-        <button
-          className="voice-button secondary-button"
-          onClick={function () {
-            makeJarvisTalk("Hello, I am JARVIS");
-          }}
-        >
-          Test Voice
-        </button>
-      </div>
-
-      {userInformation !== "" && (
-        <div className="voice-output">
-          <p className="output-text">You said: {userInformation}</p>
-        </div>
-      )}
+    <div>
+      <button onClick={listening ? () => recognitionRef.current.stop() : startVoice}>
+        {listening ? "Stop Listening" : "Talk to JARVIS"}
+      </button>
     </div>
   );
 }

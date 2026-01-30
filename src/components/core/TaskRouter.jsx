@@ -2,24 +2,35 @@ import EmailManager from "../tasks/EmailManager";
 import FileManager from "../tasks/FileManager";
 import SystemStatus from "../tasks/SystemStatus";
 
-export default function TaskRouter(commandText) {
+// This file EXECUTES tasks based on intent
+// It is called by CommandAnalyzer after intent detection
+
+// CHANGED: TaskRouter now accepts TWO arguments
+// WHY: first is the intent type, second is the full command text
+export default function TaskRouter(type, commandText) {
+
+    // CHANGED: basic safety check
+    // WHY: prevents crashes if AI returns unexpected data
     if (typeof commandText !== "string") {
         return "Invalid command";
     }
 
     const command = commandText.toLowerCase();
 
-    if (command.includes("email")) {
-        return EmailManager(command);
-    }
+    // CHANGED: switch-based routing instead of keyword scanning
+    // WHY: intent is already decided in CommandAnalyzer
+    switch (type) {
+        case "email":
+            return EmailManager(command);
 
-    if (command.includes("file")) {
-        return FileManager(command);
-    }
+        case "file":
+            return FileManager(command);
 
-    if (command.includes("status")) {
-        return SystemStatus();
-    }
+        case "status":
+            return SystemStatus();
 
-    return "Task not recognized";
+        default:
+            // CHANGED: clearer fallback message
+            return "Task not recognized";
+    }
 }
