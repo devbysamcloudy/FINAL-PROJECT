@@ -1,0 +1,37 @@
+                ┌─────────────────┐
+                │     App.jsx     │
+                │  (Routes/Layout)│
+                └────────┬────────┘
+                         │
+           ┌─────────────┴─────────────┐
+           │                           │
+       ┌─────────┐                 ┌─────────┐
+       │ Pages/  │                 │ Context/│
+       │  Login  │                 │ Hospital│
+       │ Dashboard│                │ Context │
+       │ Patients │                 └─────────┘
+       │ Appointments│
+       │ Wards   │
+       └─────────┘
+           │
+           │ Uses
+           ▼
+  ┌──────────────────────────┐
+  │ Components/              │
+  │ - Navbar.jsx             │
+  │ - Sidebar.jsx            │
+  │ - PatientCard.jsx        │
+  │ - AppointmentForm.jsx    │
+  │ - WardStatus.jsx         │
+  │ - DashboardStats.jsx     │
+  │ - Button.jsx             │
+  │ - InputField.jsx         │
+  │ - Modal.jsx              │
+  │ - ChartCard.jsx (optional)│
+  └──────────────────────────┘
+           │
+           ▼
+     Uses Mock Data
+           │
+           ▼
+        data/mockPatients.js
