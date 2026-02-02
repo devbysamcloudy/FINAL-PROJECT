@@ -94,7 +94,7 @@ function JARVISCore() {
     }
   }
 
-  // ========== AI RESPONSE (OLLAMA) ==========
+  // AI RESPONSE (OLLAMA)
   async function getAIResponse(prompt) {
     try {
       const response = await fetch(`${OLLAMA_BASE_URL}/api/generate`, {
@@ -116,7 +116,7 @@ function JARVISCore() {
     }
   }
 
-  // ========== COMMAND PROCESSING ==========
+  // COMMAND PROCESSING 
   async function processCommand(command) {
   const cleanCommand = command.replace(/^\//, '');
   
@@ -161,7 +161,7 @@ function JARVISCore() {
     Prefix with / for command mode, e.g., "/check emails"`;
   }
 
-  // ========== VOICE FUNCTIONS ==========
+  // VOICE FUNCTIONS
   function startVoiceMode() {
     if (ollamaStatus !== "connected") {
       alert("Ollama not connected. Please start Ollama service.");
@@ -220,10 +220,9 @@ function JARVISCore() {
     });
   }
 
-  // ========== RENDER ==========
+  //RENDER
   return (
     <div className="jarvis-core">
-      {/* Status Bar */}
       <div className="status-bar">
         <div className="status-item">
           <span className={`status-dot status-${ollamaStatus}`}></span>
@@ -238,7 +237,7 @@ function JARVISCore() {
         </div>
       </div>
 
-      {/* Mode Selector */}
+      
       <div className="mode-selector">
         <button 
           onClick={() => setMode("chat")}
@@ -261,7 +260,6 @@ function JARVISCore() {
         </button>
       </div>
 
-      {/* Messages Display */}
       <div className="messages-container">
         {messages.length === 0 ? (
           <div className="welcome-message">
@@ -287,7 +285,6 @@ function JARVISCore() {
         )}
       </div>
 
-      {/* Unified Input */}
       <div className="input-section">
         <textarea
           value={input}
@@ -331,7 +328,6 @@ function JARVISCore() {
           </button>
         </div>
 
-        {/* Quick Actions */}
         <div className="quick-actions">
           <button onClick={() => handleInput("check emails")}>
              Check Email

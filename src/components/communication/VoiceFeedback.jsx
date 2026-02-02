@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 
-// ==========================
 // Oloma AI Config (hardcoded for frontend testing)
-// ==========================
 // These are normally in .env, but in plain frontend React, process.env is not defined.
 const OPENAI_API_KEY = "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";
 const BASE_URL = "https://api.olama.ai/v1";
@@ -15,18 +13,15 @@ const PRESENCE_PENALTY = 0;
 const TIMEOUT = 60000;
 
 function VoiceFeedback() {
-  // ==========================
+
   // React state variables
-  // ==========================
   const [userInformation, setUserInformation] = useState(""); // Last thing user said
   const [listening, setListening] = useState(false);          // If speech recognition is active
   const [error, setError] = useState("");                     // For showing errors in UI
   const recognitionRef = useRef(null);                        // Holds SpeechRecognition instance
   const speakingRef = useRef(false);                          // Track if JARVIS is currently speaking
 
-  // ==========================
   // Start voice recognition
-  // ==========================
   function startVoice() {
     // Prevent starting multiple recognitions simultaneously or while JARVIS is speaking
     if (listening || speakingRef.current) return;
@@ -96,18 +91,13 @@ function VoiceFeedback() {
     setListening(true);
   }
 
-  // ==========================
   // Stop voice recognition manually
-  // ==========================
   function stopVoice() {
     if (recognitionRef.current) recognitionRef.current.stop();
     setListening(false);
   }
-
-  // ==========================
   // Make JARVIS speak
   // Returns a Promise so we can wait until speaking finishes
-  // ==========================
   function makeJarvisTalk(text) {
     return new Promise((resolve) => {
       speakingRef.current = true; // mark JARVIS as speaking
